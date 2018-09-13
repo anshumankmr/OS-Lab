@@ -1,0 +1,6 @@
+Write a program to construct a binary tree to support the following operations.
+Assume no duplicate elements while constructing the tree. i. Given a key, perfo
+rm a search in the binary search tree. If the key is found then display “key fo
+und” else insert the key in the binary searchtree.ii. Display the tree using in
+order, preorder and post order traversal methods2) Write a program to implement
+the following graph representations anddisplay them. i. Adjaccency matrix
