@@ -1,61 +1,67 @@
-#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct array_struct
+#include <stdint.h>
+#include <time.h>
+#include <pthread.h>
+struct Array 
 {
-  int *arr;
-  int num;
-}evenodd ;
-void* sum_even(void* param)
+	int arr[1000];
+	int length;
+	int evensum,oddsum;
+};
+void* evensum(void* param)
 {
- evenodd* array = (evenodd *)param;
- int even=0;
- for (int i = 0; i< array->num;i++)
- {
-  printf("%d ",array->arr[i]);
-  if (array->arr[i]%2==0)
-  {
-   even+=array->arr[i];
-   printf("Even %d\n",even);
-  }
- } 
- return (void*)even;
+	
+	struct Array* obj = (struct Array*)param;
+	int evensum=0;
+	for (int i=0;i<obj->length;i++)
+	{
+		if (obj->arr[i]%2==0)
+		{
+			 evensum+=obj->arr[i];
+		}
+	}
+	obj->evensum=evensum;
+	//printf("\nFunction Even Sum %d\n",obj->evensum );
+	return (void*)obj->evensum;
 }
-void* sum_odd(void* param)
+void* oddsum(void* param)
 {
- evenodd* array = (evenodd *)param;
- int odd=0;
- for (int i = 0; i< array->num;i++)
- {
-  printf("%d ",array->arr[i]);
-  if (array->arr[i]%2!=0)
-  {
-   odd+=array->arr[i];
-   printf("Odd %d\n",odd);
-  }
- }
- return (void*)odd;
+	struct Array* obj = (struct Array*)param;
+	int oddsum=0;
+	//printf("Hei\n");
+	for (int i=0;i<obj->length;i++)
+	{
+		if (obj->arr[i]%2!=0)
+		{
+			//printf(" saa %d\n",obj->arr[i] );
+			oddsum+=obj->arr[i];
+		}
+	}
+	obj->oddsum=oddsum;
+	//printf("\nFunction Odd Sum %d\n",obj->oddsum );
+	return (void*)obj->oddsum;
 }
 int main()
 {
-  pthread_t thread_even,thread_odd;
-  evenodd * fib = (evenodd *)malloc(sizeof(evenodd));
-  printf("Enter the number of terms\n");
-  scanf("%d",&(fib->num));
-  fib->arr=(int *)malloc(sizeof(int)*fib->num);
-  //printf("%d ",fib->num);
-  printf("\nEnter the terms\n");
-  for (int i=0 ;i<fib->num;i++)
-  {
-   scanf("%d",&(fib->arr[i]));
-   printf("%d ",fib->arr[i]);
-  }
-  printf("Helo\n");
-  int sum_odd,sum_even;
-  pthread_create(&thread_even,0,&sum_even,(void*)fib);
-  pthread_create(&thread_odd,0,&sum_odd,(void*)fib);
-  pthread_join(thread_even,(void**)&sum_even);
-  pthread_join(thread_odd,(void**)&sum_odd);
-  printf("\n The sum of the even elements are %i",sum_even);
-  printf("\n The sum of the odd elements are %i",sum_odd);
+	struct Array* obj=malloc(sizeof(struct Array));
+	printf("Enter a length for the array \n");
+    scanf("%d",&obj->length);
+    printf("Enter the elements \n");
+    for (int i=0;i<obj->length;i++)
+    {
+    	scanf("%d",&obj->arr[i]);
+    }
+    pthread_t thread_even,thread_odd;
+    printf("\nThread made\n");
+    void  *even,*odd=NULL;
+    pthread_create(&thread_even,0,&evensum,(void*)obj); 
+    pthread_join(&thread_even,&even);
+    wait(500);
+    pthread_create(&thread_odd,0,&oddsum,(void*)obj);
+    pthread_join(&thread_odd,&odd);   
+    printf("\n");
+  
+    printf("\nEven Sum %i ",(intptr_t)even);
+    printf("\nOdd Sum %i ",(intptr_t)odd);
 }
