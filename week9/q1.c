@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
+#include <stdlib.h>
 int proc,res;
 int Request(int request[], int need[proc][res],int pos)
 {
@@ -89,7 +89,7 @@ void resourceRequest(int need[proc][res],int max[proc][res],int alloc[proc][res]
     scanf("%d",&temp1);
     finish[temp1]=0;
 	int pos1=Request(request,need,temp1);
-      printf("Pos %d \n",pos1 );
+      //printf("Pos %d \n",pos1 );
       if (pos1!=-1)
       {
       	if (requestIsCompatible(request,avail1))
@@ -185,6 +185,7 @@ int main()
     else
     {
     	printf("\nThe system is not safe");
+    	exit(0);
     }
     resourceRequest(need,max,alloc,avail1,finish);
     resourceRequest(need,max,alloc,avail1,finish);
