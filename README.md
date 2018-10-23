@@ -14,7 +14,7 @@ Related to POSIX and parent - child process codes, note that some information in
 &nbsp;
 ## Week 5
 &nbsp;
-PTHREADS stuff, fairly simple but the last one is incorrect, will fix later
+PTHREADS stuff, fairly simple but the last one is ~~incorrect, will fix later~~ fixed
 ## Week 7
 &nbsp;
 Scheduling, thanks in part to my one of my friends , Mayank Gupta, who doesn't have a GitHub Profile
