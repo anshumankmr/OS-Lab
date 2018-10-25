@@ -27,7 +27,7 @@ int countBits( int number)
 	{
 		printf("Page Number %d \n",page/pagesize);
 		printf("Page Offset %d \n",page%pagesize);
-		printf("Bytes Required to represent page number and offset respectively %d %d\n",ceil((float)countBits(page/pagesize)/8), countBits(page%pagesize)%8);
+		printf("Bytes Required to represent page number and offset respectively %d %d\n",ceil(countBits(page/pagesize)/8),(int) countBits(page%pagesize)/8);
 	}
 }
 int main()
