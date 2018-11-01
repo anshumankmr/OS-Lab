@@ -28,3 +28,12 @@ Deadlock Detection and Prevention, the code is long but the implementation is co
 &nbsp;
 Memory Management
 
+## Week 11 
+&nbsp;
+Page Replacemenent Schemes, currently second question is unavailable but the first one works  
+## Week 12
+&nbsp;
+Disk Scheduling Algorithms, Currently in progress
+
+##Additional Exercises to be added sometime soon as well
+## I will try and see if I can get a PDF of our lab manual from some source

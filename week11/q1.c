@@ -121,7 +121,7 @@ void  optimalPageRep(int str[], int lstr, int frame )
         }//from here onwards we are only dealing with miss cases so appending is fine
         else 
         {
-           if (i>=0  && i<= frame-1)//need to fix for certain other use cases
+           if (i>=0  && i<= frame-1)//need to fix for certain other use cases potential fix positionsareempty(arr,frame)?
           {
             append(arr,frame,str[i]);
             pf+=1;
