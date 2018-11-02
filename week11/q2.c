@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-// #include "q1.h"
 int j=0;
 
 int hit(int page, int arr[], int size)
@@ -18,14 +17,6 @@ int hit(int page, int arr[], int size)
         }
     }
     return -1;
-}
-void printdist(int arr[], int frame)
-{
-    printf("Frame Table\n");
-    for (int i =0;i<frame;i++)
-    {
-        printf("%d ", arr[i]);
-    }
 }
 int positionsareempty(int arr[], int frame)
 {
@@ -65,13 +56,11 @@ void secondchance(int str[], int lstr, int m)
             modified[j]=1;
             append(arr,m,str[i]);
             pf+=1;
-            printf("Page Fault No. %d for Page %d \n",pf+1,str[i] );
-            printdist(arr,m);
         }
         else
         {
             int position = -1 ;
-            for (int k =0 ; k<m;k++)
+            for (int k = 0; k<m;k++)
             {
                 if (modified[k] ==1 )
                 {
@@ -83,21 +72,18 @@ void secondchance(int str[], int lstr, int m)
                 }
                 else
                 {
-                  position = i;
+                  position = k;
                   break;
                 }
             }
             arr[position]=str[i];
             modified[position]=1;
             pf+=1;
-            printf("Page Fault No. %d for Page %d \n",pf,str[i] );
-                        printdist(arr,m);
-
         }
      }
     }
-        printf("\nPage Hits For Least Recently Used Page Replacement Algorithm %d\n",ph);
-    printf("Page Fault For Least Recently Used Page Replacement Algorithm %d\n",pf );
+    printf("\nPage Hits For Second Chance Page Replacement Algorithm %d\n",ph);
+    printf("Page Fault For Second Chance Page Replacement Algorithm %d\n",pf );
 
 }
 

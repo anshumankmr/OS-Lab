@@ -127,7 +127,7 @@ void srtf(int Array[], int header, int n)
 	}
 	printf("\nTotal movement of header %ld\n",mvmt );
 }
-void SanDisk(int Array[], int header, int n,int lb, int ub)
+void ScanDisk(int Array[], int header, int n,int lb, int ub)
 {
 	printf("in here\n");
 	printf("%d ->",header);
@@ -203,6 +203,5 @@ int main()
 	scanf("%d ",&lb);
 	scanf("%d",&ub);
 	printf("%d ",header);
-	int header1=header;
-	SanDisk(array,header1,n,0,499);
+	ScanDisk(array,header1,n,0,499);
 }
