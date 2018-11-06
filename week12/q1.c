@@ -127,63 +127,7 @@ void srtf(int Array[], int header, int n)
 	}
 	printf("\nTotal movement of header %ld\n",mvmt );
 }
-void ScanDisk(int Array[], int header, int n,int lb, int ub)
-{
-	printf("in here\n");
-	printf("%d ->",header);
-	
-	int temp=n;
-	int j=0;
-	long mvmt=0;
-	int pos[n];
-	for (int i=0;i<n;i++)
-	{
-		pos[i]=i;
-	}
-	int array[n];
-	copy(Array,array,n);
-	bubbleSort(array,pos,n);
-	while(temp>0)
-	{
-		for (int i= header; i<ub;i++)
-		{
-			if (array[j]==i)
-			{
-				printf("%d->",array[j]);
-				mvmt+=abs(array[j]-header);
-				header = array[j];
-				array[j]=-1;
-				pos[j]=-1;
-				j+=1;
-				temp--;
-			}
-			if (i==499)
-			{
-				mvmt+=abs(array[j]-getMax(array,n));
-                break;
-			}
-		}
-		for (int i = ub; i>lb;i++)
-		{
-			if (array[j]==i)
-			{
-				printf("%d->",array[j]);
-				mvmt+=abs(array[j]-header);
-				header = array[j];
-				array[j]=-1;
-				pos[j]=-1;
-				j+=1;
-				temp--;
-			}
-			if (i==0)
-			{
-				mvmt+=abs(array[j]-getMin(array,n));
-                break;
-			}
-		}
 
-	}
-}
 int main()
 {
 	int array[200], n ,header;
@@ -198,10 +142,4 @@ int main()
     scanf("%d",&header);
 	fcfs(array,header,n);
 	srtf(array,header,n);
-	printf("Enter the range of cylinders \n");
-	int lb,ub;
-	scanf("%d ",&lb);
-	scanf("%d",&ub);
-	printf("%d ",header);
-	ScanDisk(array,header1,n,0,499);
 }

@@ -1,20 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
-void copy(int arr1[], int arr2[], int num)
-{
-	int i;
-   for (i = 0; i < num; i++) 
-   {
-      arr2[i] = arr1[i];
-   }
-}
 void swap(int *xp, int *yp) 
 { 
     int temp = *xp; 
     *xp = *yp; 
     *yp = temp; 
-} 
+}
 void bubbleSort(int arr[], int n) 
 { 
    int i, j; 
@@ -25,56 +16,50 @@ void bubbleSort(int arr[], int n)
            if (arr[j] > arr[j+1]) 
            	 {
               swap(&arr[j], &arr[j+1]);
-              // swap(&pos[j], &pos[j+1]); 
-           	 }
+             }
         }
      }      	  
 } 
-void ScanDisk(int Array[], int header, int n,int lb, int ub)
+void ScanDisk(int array[], int header, int n , int lb, int ub)
 {
-  printf("%d ->",header);
-  int proc= n,array[n],j;
-  long mvmt=0;
-  copy(Array,array,n);
   bubbleSort(array,n);
-  while (proc>0)
+  int header_locn;
+  for (int  i =0 ;i < n;i++)
   {
-  	for (int  i =0 ; i < 499 ; i++)
-  	{
-  		j =0;
-  		while (j < n)
-  		{
-         if (array[j]==i && array[j]!=INT_MAX && array[j]>header)
-         {
-         	printf("%d -> \n",array[j]);
-         	mvmt += abs(array[j]-header);
-         	header = array[j];
-         	array[j]=INT_MAX;
-         }
-         j++;
-  		}
-  	}
-  	for (int  i =499;i>=0 ; i--)
-  	{
-  		j =0;
-  		while (j < n)
-  		{
-         if (array[j]==i && array[j]!=INT_MAX && array[j]>header)
-         {
-         	printf("%d -> \n",array[j]);
-         	mvmt += abs(array[j]-header);
-         	header = array[j];
-         	array[j]=INT_MAX;
-         }
-         j++;
-  		}
-  	}
+   if (array[i]==header)
+    {
+     header_locn =i;
+     break;
+    }
   }
-  printf("\nTotal movement of header %ld\n",mvmt );
+ long mvmt =0;
+ for (int  i =header_locn;i>=0;i--)
+  { 
+   printf("%d->",array[i]);
+   mvmt= abs(array[i]-header);
+   header=array[i];
+  }
+ printf("%d->",lb);
+ mvmt=abs(lb-header);
+ for (int  i = header_locn;i<n;i++)
+ {
+   printf("%d->",array[i]);
+   mvmt= abs(array[i]-header);
+   header=array[i];
+ }
+ printf("%d->",ub);
+ mvmt=abs(ub-header);
+ printf("\nTotal movement %ld \n",mvmt);
 }
 int main()
 {
+	printf("Enter the range of cylinders \n");
+	int lb,ub;
+	scanf("%d ",&lb);
+	scanf("%d",&ub);
 	int array[200], n ,header;
+	printf("Enter the header\n");
+    scanf("%d",&header);
 	printf("Enter the total number of requests\n");
 	scanf("%d",&n);
 	printf("Enter the array of requests\n");
@@ -82,13 +67,7 @@ int main()
 	{
 		scanf("%d",&array[i]);
 	}
-	 printf("Enter the header\n");
-    scanf("%d",&header);
-	printf("Assuming the range of cylinders is from 0 - 499 and we are moving from 0 to\n");
-	// int lb,ub;
-	// scanf("%d ",&lb);
-	// scanf("%d",&ub);
-	//printf("%d ",header);
-	ScanDisk(array,header,n,0,499);
-
+	array[n]=header;
+	n+=1;
+	ScanDisk(array,header,n,lb,ub);
 }
