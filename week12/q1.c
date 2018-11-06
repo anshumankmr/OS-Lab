@@ -71,12 +71,12 @@ void bubbleSort(int arr[],int pos[], int n)
         }
      }      	  
 } 
-int zerocount(int diff[], int n)
+int usecase(int diff[], int n)//to deal with varying cases of difference values
 {
 	int zc=-1,i;
 	for (  i =0 ;i < n ; i++)
 	{
-		if (diff[i]!=0 && zc == -1) 
+		if (diff[i]!=0 && zc == -1) // in case no value of the difference is zero
 		{
 			return i;
 		}
@@ -84,7 +84,7 @@ int zerocount(int diff[], int n)
 		{
          zc+=1;
 		}
-		if (zc > -1 && diff[i]==0 && flag > 0 && i!=0 )
+		if (zc > -1 && diff[i]==0 && flag > 0 && i!=0 )// to deal with use case where there are multiple places with same value
 		{
 			flag+=1;
 			return flag;
@@ -101,14 +101,14 @@ int getShortest(int array[], int header, int n)
 	for (int i=0;i<n;i++)
 	{
 		pos[i]=i;
-	}
-	for (int i =0 ;i<n; i++)
-	{
+	// }
+	// for (int i =0 ;i<n; i++)
+	// {
 		diff[i]=abs(array[i]-header);
 		//printf("\n diff %d %d ",i , diff[i] );
 	}
 	bubbleSort(diff,pos,n);
-    return pos[zerocount(diff,n)];
+    return pos[usecase(diff,n)];
     
 }
 void srtf(int Array[], int header, int n)
@@ -140,6 +140,8 @@ int main()
 	}
     printf("Enter the header\n");
     scanf("%d",&header);
+    printf("FCFS Ordering\n");
 	fcfs(array,header,n);
+	printf("SSTF Ordering\n");
 	srtf(array,header,n);
 }
