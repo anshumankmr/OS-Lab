@@ -1,82 +1,97 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
-void copy(int arr1[], int arr2[], int num)
+#include "q1.h"
+void ScanDisk(int Array[], int header, int n , int lb, int ub)
 {
-  int i;
-   for (i = 0; i < num; i++) 
-   {
-      arr2[i] = arr1[i];
-   }
-}
-void swap(int *xp, int *yp) 
-{ 
-    int temp = *xp; 
-    *xp = *yp; 
-    *yp = temp; 
-} 
-void bubbleSort(int arr[], int n) 
-{ 
-   int i, j; 
-   for (i = 0; i < n-1; i++)       
-    {   
-       for (j = 0; j < n-i-1; j++)
-       {  
-           if (arr[j] > arr[j+1]) 
-             {
-              swap(&arr[j], &arr[j+1]);
-              // swap(&pos[j], &pos[j+1]); 
-             }
-        }
-     }          
-} 
-void ScanDisk(int Array[], int header, int n,int lb, int ub)
-{
-  printf("%d ->",header);
-  int proc= n,array[n],j;
-  long mvmt=0;
+  int array[n],pos[n];
   copy(Array,array,n);
-  bubbleSort(array,n);
-      for (int  i =0 ; i < 499 ; i++)
+  bubbleSort(array,pos,n);
+  int header_locn,temp=n;
+  for (int  i =0 ;i < n;i++)
+  {
+   if (array[i]==header)
     {
-      j =0;
-      while (j < n)
-      {
-         if (array[j]==i && array[j]!=INT_MAX && array[j]>header)
-         {
-          printf("%d -> \n",array[j]);
-          mvmt += abs(array[j]-header);
-          header = array[j];
-          array[j]=INT_MAX;
-          proc--;
-         }
-         
-         j++;
-      }
+     header_locn =i;
+     break;
     }
-    for (int  i =499;i>=0 ; i--)
+  }
+ long mvmt =0;
+ printf("SCAN Movement, assuming we move from right to left initially\n");
+ for (int  i =header_locn;i>=0;i--)
+  { 
+   printf("%d->",array[i]);
+   mvmt+= abs(array[i]-header);
+   header=array[i];
+   temp--;
+  }
+ if (temp!=0)
+ {
+   printf("%d->",lb);
+   mvmt+=abs(lb-header);
+   header=lb;
+   for (int  i = header_locn+1;i<n;i++)
+   {
+    printf("%d->",array[i]);
+    mvmt+= abs(array[i]-header);
+    header=array[i];
+    temp--;
+   }
+   if (temp!=0)
+   { 
+    printf("%d->",ub);
+    mvmt+=abs(ub-header);
+   }
+ }
+ printf("\nTotal movement %ld \n",mvmt);
+}
+void CScanDisk(int Array[], int header, int n , int lb, int ub)
+{
+  int array[n],pos[n];
+  copy(Array,array,n);
+  bubbleSort(array,pos,n);
+  int header_locn,temp=n;
+  for (int  i =0 ;i < n;i++)
+  {
+   if (array[i]==header)
     {
-      j =0;
-      while (j < n)
-      {
-         if (array[j]==i && array[j]!=INT_MAX && array[j]>header)
-         {
-          printf("%d -> \n",array[j]);
-          mvmt += abs(array[j]-header);
-          header = array[j];
-          array[j]=INT_MAX;
-          proc--;
-         }
-         j++;
-      }
+     header_locn =i;//is index not the location
+     break;
     }
- 
-  
-  printf("\nTotal movement of header %ld\n",mvmt );
+  }
+ printf("C-SCAN Movement, assuming we move from left to right initially\n");
+ long mvmt =0;
+ for (int  i = header_locn;i<n;i++)
+ {
+   printf("%d->",array[i]);
+   mvmt+= abs(array[i]-header);
+   header=array[i];
+   temp--;
+ }
+ if (temp!=0)
+ {
+  printf("%d->",ub);
+  mvmt+=abs(ub-header);
+  printf("%d->",lb );
+  header=lb;
+  for (int  i =0 ;i<header_locn;i++)
+  { 
+   printf("%d->",array[i]);
+   mvmt+= abs(array[i]-header);
+   header=array[i];
+   temp--;
+  }
+ } 
+ printf("\nTotal movement %ld \n",mvmt);
 }
 int main()
 {
+  printf("Enter the range of cylinders \n");
+  int lb,ub;
+  scanf("%d ",&lb);
+  scanf("%d",&ub);
   int array[200], n ,header;
+  printf("Enter the header\n");
+    scanf("%d",&header);
   printf("Enter the total number of requests\n");
   scanf("%d",&n);
   printf("Enter the array of requests\n");
@@ -84,13 +99,8 @@ int main()
   {
     scanf("%d",&array[i]);
   }
-   printf("Enter the header\n");
-    scanf("%d",&header);
-  printf("Assuming the range of cylinders is from 0 - 499 and we are moving from 0 to 499\n");
-  // int lb,ub;
-  // scanf("%d ",&lb);
-  // scanf("%d",&ub);
-  //printf("%d ",header);
-  ScanDisk(array,header,n,0,499);
-
+  array[n]=header;
+  n+=1;
+  ScanDisk(array,header,n,lb,ub);
+  CScanDisk(array,header,n,lb,ub);
 }
