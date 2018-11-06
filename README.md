@@ -34,5 +34,5 @@ Page Replacemenent Schemes
 ## Week 12
 &nbsp;
 Disk Scheduling Algorithms
-##Additional Exercises to be added sometime soon as well
+## Additional Exercises to be added sometime soon as well
 ## I will try and see if I can get a PDF of our lab manual from some source
